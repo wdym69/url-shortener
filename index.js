@@ -9,8 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 8001;
 
 connectToMongoDB(process.env.MONGODB_URI)
-  .then(() => console.log("Mongodb connected"))
-  .catch((err) => console.log("mongodb error:", err));
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Exit process on connection failure
+  });
 
 app.set("view engine", "ejs");
 app.use(express.json());
